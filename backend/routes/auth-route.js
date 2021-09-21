@@ -4,14 +4,14 @@ const { Router } = require('express');
 const User = require('../models/User');
 const { check, validationResult } = require('express-validator');
 const router = Router();
-const salt = process.env.salt;
+const salt = Number(process.env.salt);
 const jwtSecret = process.env.jwtSecret;
 
 router.post(
   '/registration',
   [
-    check('email', 'Incorrect email').isEmail(),
-    check('password', 'Small password, min symbols is 5').isLength({ min: 5 }),
+    check('email', 'Incorrect email.').isEmail(),
+    check('password', 'Small password, min symbols is 5.').isLength({ min: 5 }),
   ],
   async (req, res) => {
     try {
@@ -38,7 +38,7 @@ router.post(
 
       await user.save();
 
-      res.status(200).json({ message: 'User has been created.' });
+      res.status(201).json({ message: 'User has been created.' });
     } catch (err) {
       res.status(500).json({ message: 'Something want wrong.' });
     }
@@ -48,8 +48,8 @@ router.post(
 router.post(
   '/login',
   [
-    check('email', 'Incorrect email').normalizeEmail().exists,
-    check('password', 'Incorrect password').exists,
+    check('email', 'Incorrect email').normalizeEmail(),
+    check('password', 'Incorrect password').exists(),
   ],
   async (req, res) => {
     try {
@@ -76,7 +76,7 @@ router.post(
         return res.status(400).json({ message: 'Wrong password' });
       }
 
-      jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user.id }, jwtSecret, { expiresIn: '1h' });
 
       res.status(200).json({ token, userId: user.id });
     } catch (err) {

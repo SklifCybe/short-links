@@ -1,0 +1,47 @@
+@import '~materialize-css/dist/css/materialize.min.css';
+
+.container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-title {
+  text-align: center;
+}
+
+.card-action {
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-field {
+  color: #fff;
+}
+
+.enter {
+  color: #fff !important;
+  background-color: #03a9f4 !important;
+
+  &:hover {
+    background-color: darken(#03a9f4, 5) !important;
+  }
+
+  &:active {
+    background-color: darken(#03a9f4, 10) !important;
+  }
+}
+
+.regist {
+  color: #000 !important;
+  background-color: #90caf9 !important;
+
+  &:hover {
+    background-color: darken(#90caf9, 5) !important;
+  }
+
+  &:active {
+    background-color: darken(#90caf9, 10) !important;
+  }
+}

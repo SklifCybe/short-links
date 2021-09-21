@@ -1,11 +1,13 @@
 import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      Hello from React
-    </div>
-  );
-}
+import { useRoutes } from './hooks/routes';
+import { useAuth } from './hooks/auth';
 
-export default App;
+export function App() {
+  // const { login, logout, token, userId } = useAuth();
+  const isAuthenticated = false;
+
+  const routes = useRoutes(isAuthenticated);
+
+  return <div className="container">{routes}</div>;
+}

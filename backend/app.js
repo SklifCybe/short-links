@@ -5,6 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 5050;
 const mongoUri = process.env.mongoUri;
 
+app.use(express.json());
 app.use('/api/auth', require('./routes/auth-route'));
 
 const start = async () => {
