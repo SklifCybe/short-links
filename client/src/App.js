@@ -1,13 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { useRoutes } from './hooks/routes';
-import { useAuth } from './hooks/auth';
 
 export function App() {
-  // const { login, logout, token, userId } = useAuth();
-  const isAuthenticated = false;
+  const { isAuthenticated } = useSelector(({ auth }) => auth);
 
   const routes = useRoutes(isAuthenticated);
-
   return <div className="container">{routes}</div>;
 }

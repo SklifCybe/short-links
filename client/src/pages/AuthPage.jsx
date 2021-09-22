@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+
+import { login } from '../store/actions/auth';
 
 export const AuthPage = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = React.useState({ email: '', password: '' });
 
   const formHandler = (event) => {
@@ -10,8 +14,10 @@ export const AuthPage = () => {
 
   const enterHandler = async () => {
     try {
-      const data = await axios.post('/api/auth/login', { ...form });
-      console.log(data);
+      const {
+        data: { token, userId },
+      } = await axios.post('/api/auth/login', { ...form });
+      dispatch(login(token, userId));
     } catch (err) {
       const message = err.response.data.message;
       window.M.toast({ html: message });
@@ -21,8 +27,10 @@ export const AuthPage = () => {
 
   const registHandler = async () => {
     try {
-      const data = await axios.post('/api/auth/registration', { ...form });
-      console.log(data);
+      const {
+        data: { message },
+      } = await axios.post('/api/auth/registration', { ...form });
+      window.M.toast({ html: message });
     } catch (err) {
       const message = err.response.data.message;
       window.M.toast({ html: message });
@@ -31,7 +39,7 @@ export const AuthPage = () => {
   };
 
   return (
-    <div className="row">
+    <div className="row auth-block">
       <div className="col s6 offset-s3">
         <div className="card purple darken-4">
           <div className="card-content white-text">
