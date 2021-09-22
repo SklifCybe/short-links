@@ -1,12 +1,10 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Navbar } from '../components';
 import { AuthPage, CreatePage, DetailPage, LinksPage } from '../pages';
 
 export const useRoutes = (isAuthenticated) => {
   if (isAuthenticated) {
     return (
       <>
-        <Navbar />
         <Switch>
           <Route exact path="/create" component={CreatePage} />
           <Route path="/detail/:id" component={DetailPage} />
